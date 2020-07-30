@@ -21,9 +21,6 @@ public class Student {
 
     public Student(String firstName, String lastName, int fullAge) {
         this(firstName, lastName, fullAge, false, "",0, 0, 0);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fullAge = fullAge;
     }
 
     private void doTask(){}
