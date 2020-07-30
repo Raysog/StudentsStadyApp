@@ -4,10 +4,28 @@ public class Student {
     private int fullAge;
     private boolean experience;
     private String learningObjective;
-    private String group;
+    private int groupNumber;
     private int countCompletedTask;
     private int countCompletedModules;
-    
+
+    public Student(String firstName, String lastName, int fullAge, boolean experience, String learningObjective, int groupNumber, int countCompletedTask, int countCompletedModules) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullAge = fullAge;
+        this.experience = experience;
+        this.learningObjective = learningObjective;
+        this.groupNumber = groupNumber;
+        this.countCompletedTask = countCompletedTask;
+        this.countCompletedModules = countCompletedModules;
+    }
+
+    public Student(String firstName, String lastName, int fullAge) {
+        this(firstName, lastName, fullAge, false, "",0, 0, 0);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullAge = fullAge;
+    }
+
     private void doTask(){}
 
     private void askQuestion(){}
