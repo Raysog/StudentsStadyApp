@@ -1,4 +1,6 @@
-public class Student {
+package users;
+
+public class Student extends Person{
     private String firstName;
     private String lastName;
     private int fullAge;
@@ -9,9 +11,7 @@ public class Student {
     private int countCompletedModules;
 
     public Student(String firstName, String lastName, int fullAge, boolean experience, String learningObjective, int groupNumber, int countCompletedTask, int countCompletedModules) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fullAge = fullAge;
+        super(firstName, lastName, fullAge);
         this.experience = experience;
         this.learningObjective = learningObjective;
         this.groupNumber = groupNumber;
