@@ -1,5 +1,7 @@
 package tasks;
 
 public interface Autocheckable {
-    boolean checkAutomatically();
+    default void checkAutomatically(){
+        System.out.println("Задание выполнено!");
+    }
 }
