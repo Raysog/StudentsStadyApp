@@ -7,8 +7,6 @@ import tasks.Test;
 
 public class Student extends Person {
 
-    private static final int MAX_MODULES_COUNT = 24;
-
     private static int countCompletedTasksByAllStudents;
 
 
@@ -21,10 +19,6 @@ public class Student extends Person {
         this.countCompletedTask = 0;
         this.mentor = mentor;
         this.isAllTasksComplete = isAllTasksComplete;
-    }
-
-    public static int getMaxModulesCount() {
-        return MAX_MODULES_COUNT;
     }
 
     public static int getCountCompletedTasksByAllStudents() {
@@ -60,9 +54,8 @@ public class Student extends Person {
     }
 
     public void solveTasks(int countOfTasks, Task[] tasksToSolve) {
-        int startSolving = countOfTasks - countCompletedTask;
-        for (int i = startSolving; i < tasksToSolve.length; i++) {
-            this.solveCurrentTask(tasksToSolve[i]);
+        for (Task task : tasksToSolve) {
+            this.solveCurrentTask(task);
         }
         if (countCompletedTask == tasksToSolve.length) {
             System.out.println("all tasks complete");
@@ -75,6 +68,7 @@ public class Student extends Person {
 
     private void solveCurrentTask(Task task) {
         if (task instanceof DragAndDrop || task instanceof Test) {
+            System.out.print("Задача " + (task.getNumber() + 1) + ": ");
             ((Autocheckable) task).checkAutomatically();
         } else {
             while (!mentor.checkCode(task)) ;
