@@ -1,52 +1,79 @@
 package users;
 
+import tasks.Autocheckable;
+import tasks.DragAndDrop;
+import tasks.Task;
+import tasks.Test;
+
 public class Student extends Person {
 
-    private static final int MAX_MODULES_COUNT = 24;
-
     private static int countCompletedTasksByAllStudents;
-    private static int maxCompletedModules;
 
-    private String firstName;
-    private String lastName;
-    private int fullAge;
-    private boolean experience;
-    private String learningObjective;
-    private int groupNumber;
+
     private int countCompletedTask;
-    private int countCompletedModules;
+    private Mentor mentor;
+    private boolean isAllTasksComplete;
 
+    public Student(String name, String surname, int age, Mentor mentor, boolean isAllTasksComplete) {
+        super(name, surname, age);
+        this.countCompletedTask = 0;
+        this.mentor = mentor;
+        this.isAllTasksComplete = isAllTasksComplete;
+    }
 
-    public Student(String firstName, String lastName, int fullAge, boolean experience, String learningObjective, int groupNumber, int countCompletedTask, int countCompletedModules) {
-        super(firstName, lastName, fullAge);
-        this.experience = experience;
-        this.learningObjective = learningObjective;
-        this.groupNumber = groupNumber;
+    public static int getCountCompletedTasksByAllStudents() {
+        return countCompletedTasksByAllStudents;
+    }
+
+    public int getCountCompletedTask() {
+        return countCompletedTask;
+    }
+
+    public Mentor getMentor() {
+        return mentor;
+    }
+
+    public boolean isAllTasksComplete() {
+        return isAllTasksComplete;
+    }
+
+    public static void setCountCompletedTasksByAllStudents(int countCompletedTasksByAllStudents) {
+        Student.countCompletedTasksByAllStudents = countCompletedTasksByAllStudents;
+    }
+
+    public void setCountCompletedTask(int countCompletedTask) {
         this.countCompletedTask = countCompletedTask;
-        this.countCompletedModules = countCompletedModules;
     }
 
-    public Student(String firstName, String lastName, int fullAge) {
-        this(firstName, lastName, fullAge, false, "", 0, 0, 0);
+    public void setMentor(Mentor mentor) {
+        this.mentor = mentor;
     }
 
-    private void doTask() {
-        System.out.println("Task complete");
-        this.countCompletedTask++;
-        countCompletedTasksByAllStudents++;
+    public void setAllTasksComplete(boolean allTasksComplete) {
+        isAllTasksComplete = allTasksComplete;
     }
 
-    private void askQuestion() {
-    }
-
-    private void passTheModule() {
-        if (this.countCompletedModules < MAX_MODULES_COUNT) {
-            this.countCompletedModules++;
-        } else {
-            System.out.println("All modules complete");
+    public void solveTasks(int countOfTasks, Task[] tasksToSolve) {
+        for (Task task : tasksToSolve) {
+            this.solveCurrentTask(task);
+        }
+        if (countCompletedTask == tasksToSolve.length) {
+            System.out.println("all tasks complete");
+            isAllTasksComplete = true;
+        } else if (countCompletedTask < tasksToSolve.length) {
+            System.out.println("not all tasks complete");
+            isAllTasksComplete = false;
         }
     }
 
-    private void writeToCurator() {
+    private void solveCurrentTask(Task task) {
+        if (task instanceof DragAndDrop || task instanceof Test) {
+            System.out.print("Задача " + (task.getNumber() + 1) + ": ");
+            ((Autocheckable) task).checkAutomatically();
+        } else {
+            while (!mentor.checkCode(task)) ;
+        }
+        countCompletedTasksByAllStudents++;
+        countCompletedTask++;
     }
 }

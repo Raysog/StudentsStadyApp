@@ -1,6 +1,6 @@
 package users;
 
-public class Person {
+public abstract class Person {
     private String name;
     private String surname;
     private int age;
@@ -34,4 +34,5 @@ public class Person {
     public void setAge(int age) {
         this.age = age;
     }
+
 }
